@@ -26,42 +26,53 @@ def home():
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>JuTt X Hacker | Matric Fail Hacker API</title>
 
-<!-- Google Fonts for hacker style -->
+<!-- Fonts -->
 <link href="https://fonts.googleapis.com/css2?family=Share+Tech+Mono&family=Orbitron:wght@500&display=swap" rel="stylesheet">
 
 <style>
-/* Reset & Body */
-* {margin:0; padding:0; box-sizing:border-box;}
+* { margin:0; padding:0; box-sizing:border-box; }
 body {
     background: #0d0d0d;
     font-family: 'Share Tech Mono', monospace;
     color: #00ffcc;
     overflow-x: hidden;
+    scroll-behavior: smooth;
 }
 
-/* Header / Hero */
+/* Fixed Header with stacked branding */
 header {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    background: rgba(13,13,13,0.95);
+    backdrop-filter: blur(5px);
+    z-index: 999;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    padding: 20px 10px;
+    border-bottom: 1px solid #00ffcc;
     text-align: center;
-    padding: 80px 20px 40px 20px;
 }
 header h1 {
     font-family: 'Orbitron', sans-serif;
-    font-size: 64px;
+    font-size: 36px;
+    font-weight: bold;
     color: #00ffcc;
-    text-shadow: 0 0 10px #00ffcc, 0 0 20px #00ffcc, 0 0 40px #00ffcc;
-    animation: glow 2s ease-in-out infinite alternate;
+    text-shadow: 0 0 10px #00ffcc,0 0 20px #00ffcc;
+    margin-bottom: 5px;
 }
 header h2 {
-    font-size: 28px;
+    font-family: 'Share Tech Mono', monospace;
+    font-size: 18px;
     color: #ff00ff;
-    text-shadow: 0 0 10px #ff00ff, 0 0 20px #ff00ff;
+    text-shadow: 0 0 8px #ff00ff,0 0 16px #ff00ff;
 }
 
-/* Glowing animation */
-@keyframes glow {
-    from {text-shadow:0 0 10px #00ffcc,0 0 20px #00ffcc,0 0 40px #00ffcc;}
-    to {text-shadow:0 0 20px #00ffcc,0 0 40px #00ffcc,0 0 80px #00ffcc;}
-}
+/* Spacer so content is below navbar */
+.spacer { height: 90px; }
 
 /* Social Links */
 .social-links {
@@ -69,58 +80,55 @@ header h2 {
     justify-content: center;
     flex-wrap: wrap;
     gap: 20px;
-    margin: 40px 0;
+    margin: 50px 0;
 }
 .social-links a {
     text-decoration: none;
     color: #00ffff;
     border: 1px solid #00ffff;
-    padding: 12px 30px;
-    border-radius: 8px;
+    padding: 14px 28px;
+    border-radius: 10px;
     font-size: 18px;
     transition: all 0.3s ease-in-out;
-    position: relative;
-    overflow: hidden;
 }
 .social-links a:hover {
     color: black;
     background: #00ffff;
-    box-shadow: 0 0 20px #00ffff, 0 0 40px #00ffff;
-    transform: scale(1.1);
+    box-shadow: 0 0 20px #00ffff,0 0 40px #00ffff;
 }
 
-/* API Cards */
+/* API Section */
 .api-container {
     max-width: 900px;
-    margin: 50px auto;
+    margin: 60px auto;
     display: grid;
     grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-    gap: 20px;
+    gap: 25px;
     padding: 0 20px;
 }
 .api-card {
-    background: rgba(0,255,204,0.05);
+    background: rgba(0,255,204,0.07);
     border: 1px solid #00ffcc;
-    padding: 20px;
-    border-radius: 12px;
+    padding: 25px;
+    border-radius: 14px;
     box-shadow: 0 0 15px #00ffcc;
-    transition: all 0.3s ease-in-out;
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
 }
 .api-card:hover {
-    transform: translateY(-5px);
+    transform: translateY(-6px);
     box-shadow: 0 0 25px #00ffcc, 0 0 50px #00ffcc;
 }
 .api-card h3 {
-    margin-bottom: 12px;
     color: #ff00ff;
+    margin-bottom: 15px;
     text-shadow: 0 0 10px #ff00ff,0 0 20px #ff00ff;
 }
 .api-card code {
     display: block;
     background: #0d0d0d;
     color: #00ffcc;
-    padding: 12px;
-    border-radius: 8px;
+    padding: 14px;
+    border-radius: 10px;
     font-size: 14px;
     overflow-x: auto;
 }
@@ -133,28 +141,32 @@ footer {
     color: #00ffcc;
 }
 
-/* Particles */
+/* Particles optimized */
 #particles-js {
     position: fixed;
-    top:0; left:0; width:100%; height:100%;
-    z-index: -1;
+    top:0; left:0;
+    width:100%; height:100%;
+    z-index:-1;
+    pointer-events:none;
 }
 </style>
 </head>
 <body>
 
-<!-- Particles background -->
+<!-- Particles -->
 <div id="particles-js"></div>
 
 <header>
     <h1>JuTt X Hacker</h1>
-    <h2>(Matric Fail Hacker)</h2>
+    <h2>Matric Fail Hacker</h2>
 </header>
 
+<div class="spacer"></div>
+
 <div class="social-links">
-    <a href="https://youtube.com/@matricfailhacker?si=zGxShSh7SdX7xpDR" target="_blank">YouTube Channel</a>
-    <a href="https://whatsapp.com/channel/0029Vb5czH6IXnllDW2uNs1i" target="_blank">WhatsApp Channel</a>
-    <a href="mailto:Juttxhacker12@gmail.com" target="_blank">Contact Mail</a>
+    <a href="https://youtube.com/@matricfailhacker?si=zGxShSh7SdX7xpDR" target="_blank">YouTube</a>
+    <a href="https://whatsapp.com/channel/0029Vb5czH6IXnllDW2uNs1i" target="_blank">WhatsApp</a>
+    <a href="mailto:Juttxhacker12@gmail.com" target="_blank">Email</a>
 </div>
 
 <div class="api-container">
@@ -176,20 +188,20 @@ footer {
 &copy; 2026 JuTt X Hacker | Matric Fail Hacker
 </footer>
 
-<!-- Particles.js CDN -->
+<!-- Particles.js -->
 <script src="https://cdn.jsdelivr.net/particles.js/2.0.0/particles.min.js"></script>
 <script>
 particlesJS("particles-js", {
   "particles": {
-    "number": {"value": 80},
-    "color": {"value": "#00ffcc"},
-    "shape": {"type": "circle"},
-    "opacity": {"value":0.5},
-    "size": {"value":3},
-    "line_linked":{"enable":true,"distance":150,"color":"#00ffcc","opacity":0.4,"width":1},
-    "move":{"enable":true,"speed":3}
+    "number": {"value":35,"density":{"enable":true,"value_area":700}},
+    "color":{"value":"#00ffcc"},
+    "shape":{"type":"circle"},
+    "opacity":{"value":0.5,"random":true},
+    "size":{"value":2.5,"random":true},
+    "line_linked":{"enable":true,"distance":100,"color":"#00ffcc","opacity":0.25,"width":1},
+    "move":{"enable":true,"speed":1.5,"out_mode":"out"}
   },
-  "interactivity": {
+  "interactivity":{
     "detect_on":"canvas",
     "events":{"onhover":{"enable":true,"mode":"grab"},"onclick":{"enable":true,"mode":"push"}}
   }
