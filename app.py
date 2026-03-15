@@ -19,38 +19,160 @@ CORS(app)
 @app.route('/', methods=['GET'])
 def home():
     return """
-    <html>
-    <head>
-        <title>JuTt X Hacker API</title>
-        <style>
-        body{
-            background:#0f0f0f;
-            color:white;
-            text-align:center;
-            font-family:Arial;
-            padding-top:100px;
-        }
-        a{
-            display:block;
-            margin:10px;
-            color:#00ffcc;
-            font-size:20px;
-            text-decoration:none;
-        }
-        </style>
-    </head>
-    <body>
-        <h1>🔥 JuTt X Hacker Free Fire API 🔥</h1>
-        <p>Free Fire Player Info API is running</p>
+    <!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>JuTt X Hacker API</title>
+<style>
+    @import url('https://fonts.googleapis.com/css2?family=Share+Tech+Mono&display=swap');
 
-        <a href="https://youtube.com/YOURCHANNEL">YouTube</a>
-        <a href="https://t.me/YOURTELEGRAM">Telegram</a>
-        <a href="https://github.com/YOURGITHUB">GitHub</a>
+    body {
+        margin: 0;
+        padding: 0;
+        background: black;
+        color: #00ff99;
+        font-family: 'Share Tech Mono', monospace;
+        overflow-x: hidden;
+    }
 
-        <p>Example API:</p>
-        <p>/get_player_stats?uid=123456&server=IND</p>
-    </body>
-    </html>
+    h1, h2 {
+        text-align: center;
+        text-shadow: 0 0 5px #00ff99, 0 0 10px #00ff99, 0 0 20px #00ff99;
+    }
+
+    h1 {
+        margin-top: 50px;
+        font-size: 48px;
+    }
+
+    h2 {
+        margin-top: 10px;
+        font-size: 28px;
+        color: #ff0080;
+        text-shadow: 0 0 5px #ff0080, 0 0 10px #ff0080, 0 0 20px #ff0080;
+    }
+
+    .links {
+        display: flex;
+        justify-content: center;
+        flex-wrap: wrap;
+        margin-top: 50px;
+        gap: 20px;
+    }
+
+    .links a {
+        color: #00ffff;
+        text-decoration: none;
+        border: 1px solid #00ffff;
+        padding: 12px 25px;
+        border-radius: 8px;
+        transition: 0.3s;
+        font-size: 18px;
+    }
+
+    .links a:hover {
+        background: #00ffff;
+        color: black;
+        box-shadow: 0 0 15px #00ffff, 0 0 30px #00ffff;
+        transform: scale(1.1);
+    }
+
+    .api-section {
+        max-width: 800px;
+        margin: 50px auto;
+        background: rgba(0, 255, 153, 0.05);
+        border: 1px solid #00ff99;
+        padding: 20px;
+        border-radius: 10px;
+        box-shadow: 0 0 15px #00ff99;
+    }
+
+    .api-section code {
+        display: block;
+        background: black;
+        color: #00ff99;
+        padding: 15px;
+        border-radius: 8px;
+        word-wrap: break-word;
+        font-size: 16px;
+    }
+
+    footer {
+        text-align: center;
+        margin-top: 50px;
+        padding: 20px 0;
+        font-size: 14px;
+        color: #00ff99;
+    }
+
+    /* Matrix effect background */
+    canvas {
+        position: fixed;
+        top: 0;
+        left: 0;
+        z-index: -1;
+    }
+</style>
+</head>
+<body>
+
+<h1>JuTt X Hacker</h1>
+<h2>(Matric Fail Hacker)</h2>
+
+<div class="links">
+    <a href="https://youtube.com/@matricfailhacker?si=zGxShSh7SdX7xpDR" target="_blank">YouTube Channel</a>
+    <a href="https://whatsapp.com/channel/0029Vb5czH6IXnllDW2uNs1i" target="_blank">WhatsApp Channel</a>
+    <a href="mailto:Juttxhacker12@gmail.com" target="_blank">Contact Mail</a>
+</div>
+
+<div class="api-section">
+    <h2>Example Free Fire API</h2>
+    <code>https://ff-infobyjxh.vercel.app/get_player_personal_show?server=pk&uid=11647508073</code>
+</div>
+
+<footer>
+&copy; 2026 JuTt X Hacker | Matric Fail Hacker
+</footer>
+
+<!-- Matrix effect -->
+<canvas id="matrix"></canvas>
+<script>
+const canvas = document.getElementById('matrix');
+const ctx = canvas.getContext('2d');
+canvas.width = window.innerWidth;
+canvas.height = window.innerHeight;
+
+const letters = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789@#$%^&*()*&^%';
+const fontSize = 18;
+const columns = canvas.width / fontSize;
+const drops = [];
+
+for(let x=0; x<columns; x++) drops[x] = 1;
+
+function draw() {
+    ctx.fillStyle = 'rgba(0, 0, 0, 0.05)';
+    ctx.fillRect(0, 0, canvas.width, canvas.height);
+    ctx.fillStyle = '#00ff99';
+    ctx.font = fontSize + 'px monospace';
+    for(let i=0; i<drops.length; i++){
+        const text = letters[Math.floor(Math.random()*letters.length)];
+        ctx.fillText(text, i*fontSize, drops[i]*fontSize);
+        if(drops[i]*fontSize > canvas.height && Math.random() > 0.975) drops[i]=0;
+        drops[i]++;
+    }
+}
+
+setInterval(draw, 50);
+window.addEventListener('resize', () => {
+    canvas.width = window.innerWidth;
+    canvas.height = window.innerHeight;
+});
+</script>
+
+</body>
+</html>
     """
 
 @app.route('/get_search_account_by_keyword', methods=['GET'])
