@@ -24,7 +24,7 @@ def home():
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>JuTt X Hacker | Matric Fail Hacker API</title>
+<title>Matric Fail Hacker API</title>
 
 <!-- Fonts -->
 <link href="https://fonts.googleapis.com/css2?family=Share+Tech+Mono&family=Orbitron:wght@500&display=swap" rel="stylesheet">
@@ -171,16 +171,16 @@ footer {
 
 <div class="api-container">
     <div class="api-card">
-        <h3>Get Player Personal Show</h3>
+        <h3>Get Player Profile Info</h3>
         <code>https://ff-infobyjxh.vercel.app/get_player_personal_show?server=pk&uid=11647508073</code>
     </div>
     <div class="api-card">
-        <h3>Get Player Stats</h3>
-        <code>https://ff-infobyjxh.vercel.app/get_player_stats?server=pk&uid=11647508073</code>
+        <h3>Get Player Overview</h3>
+        <code>https://ff-infobyjxh.vercel.app/get_player_stats?server=pk&uid=11647508073&matchmode=RANKED&gamemode=br</code>
     </div>
     <div class="api-card">
         <h3>Search Account By Keyword</h3>
-        <code>https://ff-infobyjxh.vercel.app/get_search_account_by_keyword?server=pk&keyword=jut</code>
+        <code>https://ff-infobyjxh.vercel.app/get_search_account_by_keyword?server=pk&keyword=juTt</code>
     </div>
 </div>
 
