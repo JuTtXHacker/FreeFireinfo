@@ -16,7 +16,42 @@ app = Flask(__name__)
 CORS(app)
 
 
+@app.route('/', methods=['GET'])
+def home():
+    return """
+    <html>
+    <head>
+        <title>JuTt X Hacker API</title>
+        <style>
+        body{
+            background:#0f0f0f;
+            color:white;
+            text-align:center;
+            font-family:Arial;
+            padding-top:100px;
+        }
+        a{
+            display:block;
+            margin:10px;
+            color:#00ffcc;
+            font-size:20px;
+            text-decoration:none;
+        }
+        </style>
+    </head>
+    <body>
+        <h1>🔥 JuTt X Hacker Free Fire API 🔥</h1>
+        <p>Free Fire Player Info API is running</p>
 
+        <a href="https://youtube.com/YOURCHANNEL">YouTube</a>
+        <a href="https://t.me/YOURTELEGRAM">Telegram</a>
+        <a href="https://github.com/YOURGITHUB">GitHub</a>
+
+        <p>Example API:</p>
+        <p>/get_player_stats?uid=123456&server=IND</p>
+    </body>
+    </html>
+    """
 
 @app.route('/get_search_account_by_keyword', methods=['GET'])
 def get_search_account_by_keyword():
