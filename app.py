@@ -24,150 +24,175 @@ def home():
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>JuTt X Hacker API</title>
+<title>JuTt X Hacker | Matric Fail Hacker API</title>
+
+<!-- Google Fonts for hacker style -->
+<link href="https://fonts.googleapis.com/css2?family=Share+Tech+Mono&family=Orbitron:wght@500&display=swap" rel="stylesheet">
+
 <style>
-    @import url('https://fonts.googleapis.com/css2?family=Share+Tech+Mono&display=swap');
+/* Reset & Body */
+* {margin:0; padding:0; box-sizing:border-box;}
+body {
+    background: #0d0d0d;
+    font-family: 'Share Tech Mono', monospace;
+    color: #00ffcc;
+    overflow-x: hidden;
+}
 
-    body {
-        margin: 0;
-        padding: 0;
-        background: black;
-        color: #00ff99;
-        font-family: 'Share Tech Mono', monospace;
-        overflow-x: hidden;
-    }
+/* Header / Hero */
+header {
+    text-align: center;
+    padding: 80px 20px 40px 20px;
+}
+header h1 {
+    font-family: 'Orbitron', sans-serif;
+    font-size: 64px;
+    color: #00ffcc;
+    text-shadow: 0 0 10px #00ffcc, 0 0 20px #00ffcc, 0 0 40px #00ffcc;
+    animation: glow 2s ease-in-out infinite alternate;
+}
+header h2 {
+    font-size: 28px;
+    color: #ff00ff;
+    text-shadow: 0 0 10px #ff00ff, 0 0 20px #ff00ff;
+}
 
-    h1, h2 {
-        text-align: center;
-        text-shadow: 0 0 5px #00ff99, 0 0 10px #00ff99, 0 0 20px #00ff99;
-    }
+/* Glowing animation */
+@keyframes glow {
+    from {text-shadow:0 0 10px #00ffcc,0 0 20px #00ffcc,0 0 40px #00ffcc;}
+    to {text-shadow:0 0 20px #00ffcc,0 0 40px #00ffcc,0 0 80px #00ffcc;}
+}
 
-    h1 {
-        margin-top: 50px;
-        font-size: 48px;
-    }
+/* Social Links */
+.social-links {
+    display: flex;
+    justify-content: center;
+    flex-wrap: wrap;
+    gap: 20px;
+    margin: 40px 0;
+}
+.social-links a {
+    text-decoration: none;
+    color: #00ffff;
+    border: 1px solid #00ffff;
+    padding: 12px 30px;
+    border-radius: 8px;
+    font-size: 18px;
+    transition: all 0.3s ease-in-out;
+    position: relative;
+    overflow: hidden;
+}
+.social-links a:hover {
+    color: black;
+    background: #00ffff;
+    box-shadow: 0 0 20px #00ffff, 0 0 40px #00ffff;
+    transform: scale(1.1);
+}
 
-    h2 {
-        margin-top: 10px;
-        font-size: 28px;
-        color: #ff0080;
-        text-shadow: 0 0 5px #ff0080, 0 0 10px #ff0080, 0 0 20px #ff0080;
-    }
+/* API Cards */
+.api-container {
+    max-width: 900px;
+    margin: 50px auto;
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    gap: 20px;
+    padding: 0 20px;
+}
+.api-card {
+    background: rgba(0,255,204,0.05);
+    border: 1px solid #00ffcc;
+    padding: 20px;
+    border-radius: 12px;
+    box-shadow: 0 0 15px #00ffcc;
+    transition: all 0.3s ease-in-out;
+}
+.api-card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 0 25px #00ffcc, 0 0 50px #00ffcc;
+}
+.api-card h3 {
+    margin-bottom: 12px;
+    color: #ff00ff;
+    text-shadow: 0 0 10px #ff00ff,0 0 20px #ff00ff;
+}
+.api-card code {
+    display: block;
+    background: #0d0d0d;
+    color: #00ffcc;
+    padding: 12px;
+    border-radius: 8px;
+    font-size: 14px;
+    overflow-x: auto;
+}
 
-    .links {
-        display: flex;
-        justify-content: center;
-        flex-wrap: wrap;
-        margin-top: 50px;
-        gap: 20px;
-    }
+/* Footer */
+footer {
+    text-align: center;
+    margin: 80px 0 40px 0;
+    font-size: 14px;
+    color: #00ffcc;
+}
 
-    .links a {
-        color: #00ffff;
-        text-decoration: none;
-        border: 1px solid #00ffff;
-        padding: 12px 25px;
-        border-radius: 8px;
-        transition: 0.3s;
-        font-size: 18px;
-    }
-
-    .links a:hover {
-        background: #00ffff;
-        color: black;
-        box-shadow: 0 0 15px #00ffff, 0 0 30px #00ffff;
-        transform: scale(1.1);
-    }
-
-    .api-section {
-        max-width: 800px;
-        margin: 50px auto;
-        background: rgba(0, 255, 153, 0.05);
-        border: 1px solid #00ff99;
-        padding: 20px;
-        border-radius: 10px;
-        box-shadow: 0 0 15px #00ff99;
-    }
-
-    .api-section code {
-        display: block;
-        background: black;
-        color: #00ff99;
-        padding: 15px;
-        border-radius: 8px;
-        word-wrap: break-word;
-        font-size: 16px;
-    }
-
-    footer {
-        text-align: center;
-        margin-top: 50px;
-        padding: 20px 0;
-        font-size: 14px;
-        color: #00ff99;
-    }
-
-    /* Matrix effect background */
-    canvas {
-        position: fixed;
-        top: 0;
-        left: 0;
-        z-index: -1;
-    }
+/* Particles */
+#particles-js {
+    position: fixed;
+    top:0; left:0; width:100%; height:100%;
+    z-index: -1;
+}
 </style>
 </head>
 <body>
 
-<h1>JuTt X Hacker</h1>
-<h2>(Matric Fail Hacker)</h2>
+<!-- Particles background -->
+<div id="particles-js"></div>
 
-<div class="links">
+<header>
+    <h1>JuTt X Hacker</h1>
+    <h2>(Matric Fail Hacker)</h2>
+</header>
+
+<div class="social-links">
     <a href="https://youtube.com/@matricfailhacker?si=zGxShSh7SdX7xpDR" target="_blank">YouTube Channel</a>
     <a href="https://whatsapp.com/channel/0029Vb5czH6IXnllDW2uNs1i" target="_blank">WhatsApp Channel</a>
     <a href="mailto:Juttxhacker12@gmail.com" target="_blank">Contact Mail</a>
 </div>
 
-<div class="api-section">
-    <h2>Example Free Fire API</h2>
-    <code>https://ff-infobyjxh.vercel.app/get_player_personal_show?server=pk&uid=11647508073</code>
+<div class="api-container">
+    <div class="api-card">
+        <h3>Get Player Personal Show</h3>
+        <code>https://ff-infobyjxh.vercel.app/get_player_personal_show?server=pk&uid=11647508073</code>
+    </div>
+    <div class="api-card">
+        <h3>Get Player Stats</h3>
+        <code>https://ff-infobyjxh.vercel.app/get_player_stats?server=pk&uid=11647508073</code>
+    </div>
+    <div class="api-card">
+        <h3>Search Account By Keyword</h3>
+        <code>https://ff-infobyjxh.vercel.app/get_search_account_by_keyword?server=pk&keyword=jut</code>
+    </div>
 </div>
 
 <footer>
 &copy; 2026 JuTt X Hacker | Matric Fail Hacker
 </footer>
 
-<!-- Matrix effect -->
-<canvas id="matrix"></canvas>
+<!-- Particles.js CDN -->
+<script src="https://cdn.jsdelivr.net/particles.js/2.0.0/particles.min.js"></script>
 <script>
-const canvas = document.getElementById('matrix');
-const ctx = canvas.getContext('2d');
-canvas.width = window.innerWidth;
-canvas.height = window.innerHeight;
-
-const letters = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789@#$%^&*()*&^%';
-const fontSize = 18;
-const columns = canvas.width / fontSize;
-const drops = [];
-
-for(let x=0; x<columns; x++) drops[x] = 1;
-
-function draw() {
-    ctx.fillStyle = 'rgba(0, 0, 0, 0.05)';
-    ctx.fillRect(0, 0, canvas.width, canvas.height);
-    ctx.fillStyle = '#00ff99';
-    ctx.font = fontSize + 'px monospace';
-    for(let i=0; i<drops.length; i++){
-        const text = letters[Math.floor(Math.random()*letters.length)];
-        ctx.fillText(text, i*fontSize, drops[i]*fontSize);
-        if(drops[i]*fontSize > canvas.height && Math.random() > 0.975) drops[i]=0;
-        drops[i]++;
-    }
-}
-
-setInterval(draw, 50);
-window.addEventListener('resize', () => {
-    canvas.width = window.innerWidth;
-    canvas.height = window.innerHeight;
+particlesJS("particles-js", {
+  "particles": {
+    "number": {"value": 80},
+    "color": {"value": "#00ffcc"},
+    "shape": {"type": "circle"},
+    "opacity": {"value":0.5},
+    "size": {"value":3},
+    "line_linked":{"enable":true,"distance":150,"color":"#00ffcc","opacity":0.4,"width":1},
+    "move":{"enable":true,"speed":3}
+  },
+  "interactivity": {
+    "detect_on":"canvas",
+    "events":{"onhover":{"enable":true,"mode":"grab"},"onclick":{"enable":true,"mode":"push"}}
+  }
 });
 </script>
 
