@@ -997,14 +997,14 @@ def home():
 
                     if (clan.clanname) {
                         html += `
-                            <div class="section-title">🏢 Clan Information</div>
+                            <div class="section-title">🏢 Guild Information</div>
                             <div class="stat-grid">
                                 <div class="stat-box">
-                                    <div class="stat-label">Clan Name</div>
+                                    <div class="stat-label">Guild Name</div>
                                     <div class="stat-value" style="font-size: 0.9rem; color: #ec4899;">${clan.clanname}</div>
                                 </div>
                                 <div class="stat-box">
-                                    <div class="stat-label">Clan Level</div>
+                                    <div class="stat-label">Guild Level</div>
                                     <div class="stat-value">${clan.clanlevel || 0}</div>
                                 </div>
                                 <div class="stat-box">
@@ -1017,7 +1017,7 @@ def home():
 
                     if (social.signature) {
                         html += `
-                            <div class="section-title">✍️ Signature</div>
+                            <div class="section-title">✍️ About</div>
                             <div class="clan-info">
                                 <div class="clan-value">${social.signature}</div>
                             </div>
