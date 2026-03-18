@@ -1783,5 +1783,8 @@ def get_account_info():
 
 
 
-if __name__ == '__main__':
-    app.run(debug=True, host='0.0.0.0', port=5000)
+if __name__ == "__main__":
+    # This block is for local development and will not be executed on Vercel
+    # Vercel handles the server execution, so app.run() is not needed for deployment.
+    # For local testing, you can uncomment the line below:
+    # app.run(debug=True, host=\'0.0.0.0\', port=5000)
