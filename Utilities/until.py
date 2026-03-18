@@ -1,4 +1,5 @@
 import json
+import os
 from google.protobuf.message import Message
 from google.protobuf import json_format, message
 from Crypto.Cipher import AES
@@ -7,10 +8,14 @@ from Configuration.AESConfiguration import MAIN_KEY, MAIN_IV
 # Load accounts from JSON file
 def load_accounts():
     try:
-        with open('./Configuration/AccountConfiguration.json', 'r') as file:
+        # Get the directory of the current file (Utilities/until.py)
+        current_dir = os.path.dirname(os.path.abspath(__file__))
+        # Get the path to Configuration/AccountConfiguration.json relative to current_dir
+        config_path = os.path.join(current_dir, '..', 'Configuration', 'AccountConfiguration.json')
+        with open(config_path, 'r') as file:
             return json.load(file)
     except FileNotFoundError:
-        raise Exception("AccountConfiguration.json file not found")
+        raise Exception(f"AccountConfiguration.json file not found at {config_path}")
     except json.JSONDecodeError:
         raise Exception("Error parsing AccountConfiguration.json")
 
@@ -53,4 +58,3 @@ def decode_protobuf(encoded_data: bytes, message_type: message.Message) -> messa
     instance = message_type()
     instance.ParseFromString(encoded_data)
     return json.loads(json_format.MessageToJson(instance))
-    
