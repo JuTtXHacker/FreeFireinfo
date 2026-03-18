@@ -1601,15 +1601,29 @@ def like_profile():
     guest_uid = guest_account["uid"]
     guest_password = guest_account["password"]
 
-    # Check if token exists and is valid, otherwise get a new one
+    # Perform full MajorLogin to get a valid session token
+    # This is necessary for some endpoints like /LikeProfile which require a full session
     if guest_uid not in like_account_tokens or like_account_tokens[guest_uid]["expires_at"] < datetime.now():
         token_response = get_like_account_token(guest_uid, guest_password)
         if token_response and token_response.get("access_token"):
-            expires_in = token_response.get("expires_in", 3600) # Default to 1 hour
-            like_account_tokens[guest_uid] = {
-                "access_token": token_response["access_token"],
-                "expires_at": datetime.now() + timedelta(seconds=expires_in)
-            }
+            access_token = token_response["access_token"]
+            open_id = token_response.get("open_id", guest_uid) # Use open_id if available, else uid
+            
+            # Now perform MajorLogin to get the session token
+            major_login_response = get_major_login(access_token, open_id)
+            if major_login_response and major_login_response.get("sessionToken"):
+                session_token = major_login_response["sessionToken"]
+                expires_in = token_response.get("expires_in", 3600) # Default to 1 hour
+                like_account_tokens[guest_uid] = {
+                    "access_token": session_token, # Use the sessionToken for liking
+                    "expires_at": datetime.now() + timedelta(seconds=expires_in)
+                }
+            else:
+                # Fallback to access_token if MajorLogin fails, though it might still give 401
+                like_account_tokens[guest_uid] = {
+                    "access_token": access_token,
+                    "expires_at": datetime.now() + timedelta(seconds=3600)
+                }
         else:
             return jsonify({"status": "error", "message": "Failed to get token for guest account."}), 500
 
