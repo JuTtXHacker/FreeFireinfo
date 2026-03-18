@@ -12,33 +12,35 @@ from Configuration.APIConfiguration import RELEASEVERSION, DEBUG
 
 def send_profile_like(server_url, auth_token, target_uid):
     try:
-        like_request = Proto.compiled.like_pb2.like()
-        like_request.uid = int(target_uid)
-        like_request.region = "IND" # Default region, can be made dynamic if needed
-
+        # Correct Protobuf structure for LikeProfile
+        # Based on research, the endpoint is /LikeProfile and requires AES encrypted payload
         payload = encode_protobuf(
-            {"uid": like_request.uid, "region": like_request.region},
+            {"uid": int(target_uid), "region": "IND"}, # Region can be dynamic
             Proto.compiled.like_pb2.like()
         )
 
         headers = {
-            "Authorization": f"Bearer {auth_token}",
-            "Content-Type": "application/x-protobuf",
-            "User-Agent": "Dalvik/2.1.0 (Linux; U; Android 13; A063 Build/TKQ1.221220.001)",
+            "User-Agent": "Dalvik/2.1.0 (Linux; U; Android 14; Pixel 8 Build/UP1A.231005.007)",
             "Connection": "Keep-Alive",
             "Accept-Encoding": "gzip",
+            "Content-Type": "application/octet-stream",
+            "Expect": "100-continue",
+            "Authorization": f"Bearer {auth_token}",
             "X-Unity-Version": "2018.4.11f1",
             "X-GA": "v1 1",
-            "ReleaseVersion": RELEASEVERSION,
+            "ReleaseVersion": "OB50", # Using latest version reference
         }
 
-        # Updated Garena API endpoint for Liking
-        # For IND region, usually it is https://client.ind.freefiremobile.com
-        # But we'll use the dynamic server_url provided with correct endpoint
-        response = requests.post(f"{server_url}/LikePlayer", data=payload, headers=headers, timeout=15)
-        response.raise_for_status()
+        # Correct Endpoint is /LikeProfile (case sensitive)
+        endpoint = f"{server_url}/LikeProfile"
+        response = requests.post(endpoint, data=payload, headers=headers, timeout=15)
+        
         if DEBUG:
-            print("[I] Like Response:", response.content, "\n")
+            print(f"[I] Like Request to {endpoint}")
+            print(f"[I] Response Status: {response.status_code}")
+            print(f"[I] Response Content: {response.content}\n")
+            
+        response.raise_for_status()
         return True
     except requests.exceptions.RequestException as e:
         print(f"Error sending like request: {e}")
