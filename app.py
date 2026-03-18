@@ -1615,7 +1615,11 @@ def like_profile():
 
     auth_token = like_account_tokens[guest_uid]["access_token"]
 
-    like_success = send_profile_like(f"https://{server.lower()}api.garena.com", auth_token, target_uid)
+    # Updated correct server URL format for Garena
+    # For IND: https://client.ind.freefiremobile.com
+    # For others: https://client.<region>.freefiremobile.com
+    region_server = f"https://client.{server.lower()}.freefiremobile.com"
+    like_success = send_profile_like(region_server, auth_token, target_uid)
 
     if like_success:
         return jsonify({"status": "success", "message": f"Successfully sent like to UID {target_uid}"}), 200
