@@ -11,5 +11,8 @@
       "src": "/(.*)",
       "dest": "app.py"
     }
-  ]
+  ],
+  "env": {
+    "PROTOCOL_BUFFERS_PYTHON_IMPLEMENTATION": "python"
+  }
 }
