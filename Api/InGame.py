@@ -16,7 +16,10 @@ def send_profile_like(server_url, auth_token, target_uid):
         like_request.uid = int(target_uid)
         like_request.region = "IND" # Default region, can be made dynamic if needed
 
-        payload = encode_protobuf(like_request)
+        payload = encode_protobuf(
+            {"uid": like_request.uid, "region": like_request.region},
+            Proto.compiled.like_pb2.like()
+        )
 
         headers = {
             "Authorization": f"Bearer {auth_token}",
