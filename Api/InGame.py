@@ -1,6 +1,7 @@
 import requests
 import Proto.compiled.PlayerPersonalShow_pb2
 import Proto.compiled.PlayerStats_pb2
+import Proto.compiled.like_pb2
 import Proto.compiled.PlayerCSStats_pb2
 import Proto.compiled.SearchAccountByName_pb2
 from Utilities.until import encode_protobuf, decode_protobuf
@@ -8,6 +9,38 @@ import json
 from Configuration.APIConfiguration import RELEASEVERSION, DEBUG
 
 
+
+def send_profile_like(server_url, auth_token, target_uid):
+    try:
+        like_request = Proto.compiled.like_pb2.like()
+        like_request.uid = int(target_uid)
+        like_request.region = "IND" # Default region, can be made dynamic if needed
+
+        payload = encode_protobuf(like_request)
+
+        headers = {
+            "Authorization": f"Bearer {auth_token}",
+            "Content-Type": "application/x-protobuf",
+            "User-Agent": "Dalvik/2.1.0 (Linux; U; Android 13; A063 Build/TKQ1.221220.001)",
+            "Connection": "Keep-Alive",
+            "Accept-Encoding": "gzip",
+            "X-Unity-Version": "2018.4.11f1",
+            "X-GA": "v1 1",
+            "ReleaseVersion": RELEASEVERSION,
+        }
+
+        # The actual endpoint for liking might be different, this is an educated guess
+        response = requests.post(f"{server_url}/LikePlayer", data=payload, headers=headers, timeout=10)
+        response.raise_for_status()
+        if DEBUG:
+            print("[I] Like Response:", response.content, "\n")
+        return True
+    except requests.exceptions.RequestException as e:
+        print(f"Error sending like request: {e}")
+        return False
+    except Exception as e:
+        print(f"An unexpected error occurred while sending like: {e}")
+        return False
 
 def search_account_by_keyword(server_url, auth_token, keyword):
     """

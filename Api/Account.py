@@ -2,7 +2,21 @@ import requests
 import Proto.compiled.MajorLogin_pb2
 from Utilities.until import encode_protobuf, decode_protobuf
 import json
+import os
 from Configuration.APIConfiguration import RELEASEVERSION, DEBUG
+
+LIKE_ACCOUNTS_FILE = os.path.join(os.path.dirname(__file__), '..', 'Configuration', 'LikeAccounts.json')
+
+def load_like_accounts():
+    if not os.path.exists(LIKE_ACCOUNTS_FILE):
+        print(f"[E] LikeAccounts.json not found at {LIKE_ACCOUNTS_FILE}")
+        return []
+    with open(LIKE_ACCOUNTS_FILE, 'r') as f:
+        return json.load(f)
+
+def get_like_account_token(uid, password):
+    return get_garena_token(uid, password)
+
 
 
 def get_garena_token(uid, password):
