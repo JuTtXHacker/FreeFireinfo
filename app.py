@@ -4,11 +4,15 @@ import json
 import time
 from datetime import datetime, timedelta
 from Utilities.until import load_accounts
-from Api.Account import get_garena_token, get_major_login
-from Api.InGame import get_player_personal_show, get_player_stats, search_account_by_keyword
+from Api.Account import get_garena_token, get_major_login, load_like_accounts, get_like_account_token
+from Api.InGame import get_player_personal_show, get_player_stats, search_account_by_keyword, send_profile_like
 
 
 accounts = load_accounts()
+like_accounts = load_like_accounts()
+
+# Token cache for like accounts
+like_account_tokens = {}
 
 
 app = Flask(__name__)
@@ -1580,7 +1584,45 @@ def get_player_stat():
             "message": "An unexpected error occurred while processing your request"
         }), 500
 
-@app.route('/get_player_personal_show', methods=['GET'])
+@app.route("/like_profile", methods=["GET"])
+def like_profile():
+    target_uid = request.args.get("uid")
+    server = request.args.get("server", "IND") # Default to IND, can be dynamic
+
+    if not target_uid:
+        return jsonify({"status": "error", "message": "UID is required"}), 400
+
+    if not like_accounts:
+        return jsonify({"status": "error", "message": "No guest accounts configured for liking."}), 500
+
+    # For simplicity, use the first available guest account for now
+    # In a real-world scenario, you'd want to implement a rotation or more robust token management
+    guest_account = like_accounts[0]
+    guest_uid = guest_account["uid"]
+    guest_password = guest_account["password"]
+
+    # Check if token exists and is valid, otherwise get a new one
+    if guest_uid not in like_account_tokens or like_account_tokens[guest_uid]["expires_at"] < datetime.now():
+        token_response = get_like_account_token(guest_uid, guest_password)
+        if token_response and token_response.get("access_token"):
+            expires_in = token_response.get("expires_in", 3600) # Default to 1 hour
+            like_account_tokens[guest_uid] = {
+                "access_token": token_response["access_token"],
+                "expires_at": datetime.now() + timedelta(seconds=expires_in)
+            }
+        else:
+            return jsonify({"status": "error", "message": "Failed to get token for guest account."}), 500
+
+    auth_token = like_account_tokens[guest_uid]["access_token"]
+
+    like_success = send_profile_like(f"https://{server.lower()}api.garena.com", auth_token, target_uid)
+
+    if like_success:
+        return jsonify({"status": "success", "message": f"Successfully sent like to UID {target_uid}"}), 200
+    else:
+        return jsonify({"status": "error", "message": f"Failed to send like to UID {target_uid}"}), 500
+
+@app.route("/get_player_personal_show", methods=["GET"])
 def get_account_info():
     try:
         # Get parameters with defaults
