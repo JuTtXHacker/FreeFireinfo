@@ -23,12 +23,12 @@ def send_profile_like(server_url, auth_token, target_uid):
             "User-Agent": "Dalvik/2.1.0 (Linux; U; Android 14; Pixel 8 Build/UP1A.231005.007)",
             "Connection": "Keep-Alive",
             "Accept-Encoding": "gzip",
-            "Content-Type": "application/octet-stream",
+            "Content-Type": "application/x-protobuf", # Changed to x-protobuf for compatibility
             "Expect": "100-continue",
             "Authorization": f"Bearer {auth_token}",
             "X-Unity-Version": "2018.4.11f1",
             "X-GA": "v1 1",
-            "ReleaseVersion": "OB50", # Using latest version reference
+            "ReleaseVersion": "OB50",
         }
 
         # Correct Endpoint is /LikeProfile (case sensitive)
